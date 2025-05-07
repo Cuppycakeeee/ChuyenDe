@@ -62,22 +62,22 @@
         </div>
         <div class="swiper-slide">
           <div class="h-96 flex justify-center items-center">
-            <img class="" src="uploads/bg1.jpg">
+            <img class="" src="uploads/bg2.jpg">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="h-96 flex justify-center items-center">
-            <img class="" src="uploads/bg1.jpg">
+            <img class="" src="uploads/bg3.jpg">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="h-96 flex justify-center items-center">
-            <img class="" src="uploads/bg1.jpg">
+            <img class="" src="uploads/bg4.jpg">
           </div>
         </div>
         <div class="swiper-slide">
           <div class="h-96 flex justify-center items-center">
-            <img class="" src="uploads/bg1.jpg">
+            <img class="" src="uploads/bg5.jpg">
           </div>
         </div>
       </div>
