@@ -431,6 +431,121 @@
   </div>
 </section>
 
+<style>
+  /* Cập nhật màu sắc giao diện chatbot để phù hợp với trang web */
+  #chatbot-popup {
+    display: none; /* Ẩn mặc định */
+    z-index: 1000;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background-color: #ffffff; /* Màu nền trắng */
+    border: 1px solid #e0e0e0; /* Viền xám nhạt */
+    border-radius: 15px; /* Bo góc mềm mại */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+  }
+
+  #chatbot-popup-header {
+    background-color: #f8f9fa; /* Màu nền xám nhạt */
+    color: #333333; /* Chữ đen đậm */
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    position: relative;
+  }
+
+  #chatbot-popup-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #ffffff; /* Nền trắng */
+    color: #333333; /* Chữ đen đậm */
+  }
+
+  #chatbot-popup-input {
+    display: flex;
+    border-top: 1px solid #e0e0e0; /* Viền xám nhạt */
+    background-color: #f8f9fa; /* Nền xám nhạt */
+    padding: 10px;
+  }
+
+  #chatbot-popup-input input {
+    flex: 1;
+    border: 1px solid #e0e0e0; /* Viền xám nhạt */
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 14px;
+    margin-right: 10px;
+    background-color: #ffffff; /* Nền trắng */
+    color: #333333; /* Chữ đen đậm */
+  }
+
+  #chatbot-popup-input button {
+    background-color: #333333; 
+    color: white; 
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  #chatbot-popup-input button:hover {
+    background-color: #0056b3; /* Màu xanh dương đậm khi hover */
+  }
+
+  #chatbot-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #333333; /* Chữ đen đậm */
+  }
+
+  #chatbot-button {
+    z-index: 1001;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ffd700; /* Màu xanh dương */
+    color: white; /* Chữ trắng */
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<!-- Nút bấm mở chatbot -->
+<button id="chatbot-button">💬</button>
+
+<!-- Popup chatbot -->
+<div id="chatbot-popup">
+  <div id="chatbot-popup-header">
+    Chatbot
+    <button id="chatbot-close">&times;</button>
+  </div>
+  <div id="chatbot-popup-messages"></div>
+  <div id="chatbot-popup-input">
+    <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn...">
+    <button id="chatbot-send">Gửi</button>
+  </div>
+</div>
+
 <script>
   var swiper = new Swiper(".progress-slide-carousel", {
     loop: true,
@@ -469,6 +584,103 @@
         slidesPerView: 1,
         spaceBetween: 0
       }
+    }
+  });
+</script>
+
+<script>
+  // Đảm bảo logic hiển thị popup hoạt động
+  const chatbotButton = document.getElementById('chatbot-button');
+  const chatbotPopup = document.getElementById('chatbot-popup');
+  const chatbotClose = document.getElementById('chatbot-close');
+
+  chatbotButton.addEventListener('click', () => {
+    chatbotPopup.style.display = 'flex'; // Hiển thị popup
+  });
+
+  chatbotClose.addEventListener('click', () => {
+    chatbotPopup.style.display = 'none'; // Ẩn popup
+  });
+</script>
+
+<script>
+  // Sửa logic để gửi tin nhắn khi nhấn phím Enter
+  const chatbotInput = document.getElementById('chatbot-input');
+  const chatbotSend = document.getElementById('chatbot-send');
+
+  chatbotInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Ngăn chặn hành động mặc định của Enter
+      chatbotSend.click(); // Kích hoạt nút gửi
+    }
+  });
+</script>
+
+<script>
+  // Cập nhật logic để hiển thị phản hồi từ API dưới dạng HTML
+  const chatbotMessages = document.getElementById('chatbot-popup-messages');
+
+  // Hàm gửi tin nhắn
+  async function sendMessage() {
+    const message = chatbotInput.value.trim();
+    if (message) {
+      // Hiển thị tin nhắn của người dùng
+      const userMessage = document.createElement('div');
+      userMessage.textContent = message;
+      userMessage.style.textAlign = 'right';
+      userMessage.style.margin = '5px 0';
+      chatbotMessages.appendChild(userMessage);
+
+      // Xóa nội dung trong ô nhập
+      chatbotInput.value = '';
+
+      // Cuộn xuống cuối khung chat
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+      try {
+        // Gửi tin nhắn đến API
+        const response = await fetch('chatbot_api.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // Hiển thị phản hồi từ chatbot dưới dạng HTML
+          const botMessage = document.createElement('div');
+          botMessage.innerHTML = data.reply; // Sử dụng innerHTML để hiển thị HTML từ API
+          botMessage.style.textAlign = 'left';
+          botMessage.style.margin = '5px 0';
+          chatbotMessages.appendChild(botMessage);
+
+          // Cuộn xuống cuối khung chat
+          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        } else {
+          throw new Error('Lỗi khi gọi API');
+        }
+      } catch (error) {
+        // Hiển thị lỗi nếu có
+        const errorMessage = document.createElement('div');
+        errorMessage.textContent = 'Đã xảy ra lỗi. Vui lòng thử lại sau!';
+        errorMessage.style.textAlign = 'left';
+        errorMessage.style.margin = '5px 0';
+        chatbotMessages.appendChild(errorMessage);
+      }
+    }
+  }
+
+  // Sự kiện bấm nút gửi
+  chatbotSend.addEventListener('click', sendMessage);
+
+  // Sự kiện nhấn phím Enter
+  chatbotInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Ngăn chặn hành động mặc định của Enter
+      sendMessage(); // Gọi hàm gửi tin nhắn
     }
   });
 </script>

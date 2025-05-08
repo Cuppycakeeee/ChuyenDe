@@ -139,7 +139,7 @@
                         <a href="../home/lienhe.php" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300"> Liên Hệ</a>
                     </li>
                     <li class="mr-4">
-                        <a href="../home/#" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">  Sản phẩm mới / Hàng mới về</a>
+                        <a href="../home/faq.php" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">  FAQ</a>
                     </li>
                     <li class="mr-4">
                         <a href="../home/test.php" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">Bộ sưu tập / Xu hướng hot</a>
