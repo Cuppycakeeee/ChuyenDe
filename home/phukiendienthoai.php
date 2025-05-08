@@ -2,7 +2,7 @@
 <title>Phụ Kiện Điện Thoại</title>
 <section class="pt-10">
     <div class="relative pb-6">
-        <img src="uploads/bg-nhan.jpg" class="w-full h-full object-cover">
+        <img src="uploads/bgphukien.png" class="w-full h-full object-cover">
         <div class="absolute inset-0 flex items-start justify-start p-4 md:absolute md:pt-24 md:pl-32 ">
           <p class="md:text-5xl font-bold sm:text-xl">Phụ Kiện Điện Thoại </p>
         </div>

@@ -18,7 +18,7 @@ $pass = "";
 <section class="bg-white">
     <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
         <aside class="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
-            <img alt="" src="../home/uploads/dangki.png" class="absolute inset-0 h-full w-full object-cover rounded-3xl" />
+            <img alt="" src="../home/uploads/dangki3.png" class="absolute inset-0 h-full w-full object-cover rounded-3xl" />
         </aside>
         <main class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
             <div class="max-w-xl lg:max-w-3xl">
@@ -77,7 +77,7 @@ $pass = "";
 
                     <!-- Nút Tạo Tài Khoản và Đăng Nhập -->
                     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
-                        <input type="submit" name="add" class="inline-block shrink-0 rounded-md border border-yellow-600 bg-yellow-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-yellow-600 focus:outline-none focus:ring active:text-yellow-500" value="Thêm tài khoản">
+                        <input type="submit" name="add" class="inline-block shrink-0 rounded-md border border-black bg-black px-12 py-3 text-sm font-medium text-yellow-400 transition hover:bg-transparent hover:text-black focus:outline-none focus:ring active:text-gray-700" value="Thêm tài khoản">
                         <p class="mt-4 text-sm text-gray-500 sm:mt-0">Bạn đã có tài khoản rồi ư??? <a href="../authentication/dangnhap.php" class="text-gray-700 underline">Đăng Nhập</a>.</p>
                     </div>
                 </form>
