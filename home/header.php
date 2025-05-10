@@ -105,7 +105,7 @@
             <div class="items-center hidden w-full md:block md:w-auto" id="navbar-dropdown">
                 <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border-t-4 border-yellow-300 md:flex-row md:space-x-8 md:mt-0">
                     <li class="mr-4">
-                        <a href="<?php echo '../home/home.php'; ?>" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">Trang Chủ</a>
+                        <a href="<?php echo '../home/home.php'; ?>" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300 ">Trang Chủ</a>
                     </li>
                     <li class="relative group">
                         <button id="dropdownNavbarLink" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-semibold border-b-2 border-transparent hover:border-yellow-300">
@@ -140,9 +140,6 @@
                     </li>
                     <li class="mr-4">
                         <a href="../home/faq.php" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">  FAQ</a>
-                    </li>
-                    <li class="mr-4">
-                        <a href="../home/test.php" class="block py-2 pl-3 pr-4 text-gray-900 font-semibold border-b-2 border-transparent hover:border-yellow-300">Bộ sưu tập / Xu hướng hot</a>
                     </li>
                 </ul>
             </div>

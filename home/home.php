@@ -91,7 +91,7 @@
     <div class="swiper centered-slide-carousel max-h-80 ">
       <div class="swiper-wrapper pb-16">
         <?php
-        $query = "SELECT * FROM sanpham LIMIT 20";
+        $query = "SELECT * FROM sanpham ORDER BY MaSanPham DESC LIMIT 20";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) {
           while ($row = mysqli_fetch_assoc($result)) {

@@ -47,7 +47,7 @@ $result = mysqli_query($conn, "SELECT giohang.*, sanpham.*, loaisanpham.*, gioha
 
 ?>
 <title>Giỏ Hàng</title>
-<section class="section-content py-10">
+<section class="section-content py-10 pb-40">
     <div class="container mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <main class="md:col-span-2">

@@ -18,8 +18,8 @@ if (strpos($message, 'giày') !== false) {
     $response = 'Bạn có thể xem các phụ kiện điện thoại tại đây: <a href="phukiendienthoai.php">Phụ Kiện Điện Thoại</a>';
 } elseif (strpos($message, 'túi') !== false) {
     $response = 'Bạn có thể xem các sản phẩm túi tại đây: <a href="tui.php">Túi</a>';
-} elseif (strpos($message, 'chính sách') !== false) {
-    $response = 'Bạn có thể xem thông tin về chính sách tại đây: <a href="#">Chính Sách</a>';
+} elseif (strpos($message, 'faq') !== false) {
+    $response = 'Bạn có thể xem thông tin về faq tại đây: <a href="#">faq</a>';
 } else {
     $response = 'Xin lỗi, tôi chưa hiểu ý bạn. Bạn có thể nói rõ hơn không?';
 }
