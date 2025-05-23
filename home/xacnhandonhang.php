@@ -82,26 +82,6 @@ $_SESSION['tongtien'] = $tongtien;
                             </p>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <h6 class="text-sm font-bold text-gray-900">Phương thức thanh toán</h6>
-                        <form action="../home/xacnhandonhang.php" method="POST">
-                            <div class="mb-4">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="payment_method" value="cash" class="form-radio" checked>
-                                    <span class="ml-2">Tiền mặt</span>
-                                </label>
-                            </div>
-                            <div class="mb-4">
-                                <label class="inline-flex items-center">
-                                    <input type="radio" name="payment_method" value="atm" class="form-radio">
-                                    <span class="ml-2">ATM</span>
-                                </label>
-                            </div>
-                            <button type="submit" class="btn-primary btn-sm float-right">
-                                <span class="inline-block align-middle">Xác nhận thanh toán</span>
-                            </button>
-                        </form>
-                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table-auto w-full">

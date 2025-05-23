@@ -150,7 +150,7 @@
         $productImage2 = $row['Anh2'];
         $productId = $row['MaSanPham'];
 
-        // Cắt ngắn đoạn văn bản nếu quá dài
+        
         $shortTitle = strlen($productTitle) > 30 ? wordwrap($productTitle, 30, "<br>", true) : $productTitle;
     ?>
         <div class="md:flex md:flex-row md:justify-center w-full md:w-1/5 pb-10 transition duration-300 transform hover:scale-110">
