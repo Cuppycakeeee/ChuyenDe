@@ -2,6 +2,10 @@
 <?php
 include '../config.php';
 include 'admin_header.php';
+
+// Lấy giá trị filter từ form (nếu có)
+$tinhtrangFilter = isset($_GET['tinhtrang']) ? $_GET['tinhtrang'] : '';
+
 // Lấy thông tin hóa đơn cùng thông tin khách hàng
 $sql = "
     SELECT 
@@ -18,66 +22,101 @@ $sql = "
         taikhoankhachhang ON hoadon.MaKhachHang = taikhoankhachhang.MaKhachHang
     INNER JOIN 
         chitiethoadon ON hoadon.MaHoaDon = chitiethoadon.MaHoaDon
-    GROUP BY 
-        hoadon.MaHoaDon
 ";
+
+// Thêm điều kiện lọc nếu có chọn tình trạng
+if ($tinhtrangFilter != '') {
+    $sql .= " WHERE hoadon.TinhTrangDonHang = '" . mysqli_real_escape_string($conn, $tinhtrangFilter) . "'";
+}
+
+$sql .= " GROUP BY hoadon.MaHoaDon";
 
 $result = mysqli_query($conn, $sql);
 
 if (!$result) {
     die("Lỗi truy vấn: " . mysqli_error($conn));
 }
-
-if (mysqli_num_rows($result) > 0) {
 ?>
-    <div class="p-4 sm:ml-60">
-        <table class="table-auto border-collapse border">
-            <h3 class="px-6 py-3 text-center text-xl font-medium text-gray-500 uppercase tracking-wider">Quản Lý Hóa Đơn</h3>
+<!-- Bộ lọc tình trạng đơn hàng -->
+<div class="p-4 sm:ml-60">
+    <h3 class="text-3xl text-center text-info font-medium text-gray-500 uppercase tracking-wider">QUẢN LÝ HÓA ĐƠN</h3>
+    <div class="flex justify-end mb-6">
+        <div class="bg-white shadow-lg rounded-lg px-6 py-3 flex items-center gap-3">
+            <form method="get" class="flex items-center gap-2">
+                <select name="tinhtrang" id="tinhtrang" class="border border-blue-300 rounded px-2 py-1 focus:ring focus:ring-blue-200">
+                    <option value="">Tất cả</option>
+                    <option value="Đang xử lý" <?php if($tinhtrangFilter=='Đang xử lý') echo 'selected'; ?>>Đang xử lý</option>
+                    <option value="Đang giao hàng" <?php if($tinhtrangFilter=='Đang giao hàng') echo 'selected'; ?>>Đang giao hàng</option>
+                    <option value="Giao hàng thành công" <?php if($tinhtrangFilter=='Giao hàng thành công') echo 'selected'; ?>>Giao hàng thành công</option>
+                    <option value="Giao hàng thất bại" <?php if($tinhtrangFilter=='Giao hàng thất bại') echo 'selected'; ?>>Giao hàng thất bại</option>
+                </select>
+                <button type="submit" class="p-2 rounded bg-blue-500 hover:bg-blue-600 text-white flex items-center" title="Lọc">
+                    <!-- Filter icon SVG -->
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6h18M4 10v10a1 1 0 001 1h14a1 1 0 001-1V10"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="overflow-x-auto rounded-lg shadow">
+        <table class="min-w-full table-auto border-collapse border">
             <thead>
-                <tr class="bg-blue-300">
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">mã hoá đơn</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ngày tạo</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">tên khách hàng</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">số điện thoại</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">địa chỉ</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">tình trạng đơn hàng</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">tổng tiền</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">chức năng</th>
+                <tr class="bg-blue-300 text-gray-700">
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Mã hoá đơn</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Ngày tạo</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Tên khách hàng</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Số điện thoại</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Địa chỉ</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Tình trạng đơn hàng</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Tổng tiền</th>
+                    <th class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">Chức năng</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                while ($row = mysqli_fetch_assoc($result)) {
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                    <tr class="bg-white hover:bg-gray-100 transition duration-300">
-                        <td class="border px-6 py-3"><?php echo $row["MaHoaDon"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo $row["NgayLap"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo $row["TenKhachHang"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo $row["SoDienThoai"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo $row["DiaChi"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo $row["TinhTrangDonHang"]; ?></td>
-                        <td class="border px-6 py-3"><?php echo number_format($row["TongTien"], 0, ',', '.') . ' VND'; ?></td>
-                        <td class="flex flex-col">
-                            <button type="button" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" data-id="<?php echo $row["MaHoaDon"]; ?>" onclick="openViewModal('<?php echo $row["MaHoaDon"]; ?>')">
-                                Xem
-                            </button>
-                            <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="openUpdateModal('<?php echo $row['MaHoaDon']; ?>', '<?php echo $row['NgayLap']; ?>', '<?php echo $row['TinhTrangDonHang']; ?>')">
-                                Cập nhật
-                            </button>
-                        </td>
-                    </tr>
+                        <tr class="bg-white hover:bg-blue-50 transition duration-200">
+                            <td class="border px-6 py-3"><?php echo $row["MaHoaDon"]; ?></td>
+                            <td class="border px-6 py-3"><?php echo $row["NgayLap"]; ?></td>
+                            <td class="border px-6 py-3"><?php echo $row["TenKhachHang"]; ?></td>
+                            <td class="border px-6 py-3"><?php echo $row["SoDienThoai"]; ?></td>
+                            <td class="border px-6 py-3"><?php echo $row["DiaChi"]; ?></td>
+                            <td class="border px-6 py-3">
+                                <span class="<?php
+                                    switch($row["TinhTrangDonHang"]) {
+                                        case 'Giao hàng thành công': echo 'text-green-600 font-semibold'; break;
+                                        case 'Giao hàng thất bại': echo 'text-red-600 font-semibold'; break;
+                                        case 'Đang giao hàng': echo 'text-yellow-600 font-semibold'; break;
+                                        default: echo 'text-blue-600 font-semibold';
+                                    }
+                                ?>">
+                                    <?php echo $row["TinhTrangDonHang"]; ?>
+                                </span>
+                            </td>
+                            <td class="border px-6 py-3"><?php echo number_format($row["TongTien"], 0, ',', '.') . ' VND'; ?></td>
+                            <td class="flex flex-col gap-2 py-3">
+                                <button type="button" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-4 rounded-full shadow" data-id="<?php echo $row["MaHoaDon"]; ?>" onclick="openViewModal('<?php echo $row["MaHoaDon"]; ?>')">
+                                    Xem
+                                </button>
+                                <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full shadow" onclick="openUpdateModal('<?php echo $row['MaHoaDon']; ?>', '<?php echo $row['NgayLap']; ?>', '<?php echo $row['TinhTrangDonHang']; ?>')">
+                                    Cập nhật
+                                </button>
+                            </td>
+                        </tr>
                 <?php
+                    }
+                } else {
+                    echo "<tr><td colspan='8' class='text-center py-6 text-gray-500'>Không có kết quả</td></tr>";
                 }
                 ?>
             </tbody>
         </table>
-
     </div>
+</div>
 <?php
-} else {
-    echo "Không có kết quả";
-}
-
 mysqli_close($conn);
 ?>
 <?php include 'admin_footer.php' ?>

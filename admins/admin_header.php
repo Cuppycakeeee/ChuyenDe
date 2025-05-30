@@ -81,20 +81,19 @@ include "config.php";
                 </a>
             </div>
         </div>
-        <div class="inline-block pt-80">
+        <div class="w-full flex flex-col items-center mt-auto mb-6">
             <?php
-            $sql_countHD = "SELECT * FROM taikhoannhanvien 
-            WHERE MaNhanVien = '{$_SESSION['MaNhanVien']}'";
+            $sql_countHD = "SELECT * FROM taikhoannhanvien WHERE MaNhanVien = '{$_SESSION['MaNhanVien']}'";
             $result = mysqli_query($conn, $sql_countHD);
-            $row = mysqli_fetch_assoc($result); // Sử dụng mysqli_fetch_assoc thay vì mysqli_fetch_row
+            $row = mysqli_fetch_assoc($result);
             ?>
-            <button class="flex py-2.5 px-5 text-xs bg-indigo-500 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-700 " href="#" data-tooltip-target="popover-footer">
+            <button class="flex py-2.5 px-5 text-xs bg-indigo-500 text-white rounded-full cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-indigo-700" href="#" data-tooltip-target="popover-footer">
                 <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="ml-1 text-sm">Tài Khoản</span>
             </button>
-            <div class="w-52 inline-block absolute mb-2 bottom-full left-1/2 -translate-x-1/2 z-10 bg-white rounded-xl shadow-md text-left invisible" role="tooltip" id="popover-footer">
+            <div class="w-52 inline-block absolute mb-2 left-60 bottom-10 z-10 bg-white rounded-xl shadow-md text-left invisible" role="tooltip" id="popover-footer">
                 <div class="p-5 border-b border-gray-200 flex items-center justify-between">
                     <div class="flex items-center gap-3">
                         <?php if (isset($row['Anh'])) : ?>
