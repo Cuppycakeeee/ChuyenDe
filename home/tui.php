@@ -2,9 +2,9 @@
 <title>Túi</title>
 <section class="pt-10">
     <div class="relative pb-6">
-        <img src="uploads/bg1.jpg" class="w-full h-full object-cover">
+        <img src="uploads/bg6.png" class="w-full h-full object-cover">
         <div class="absolute inset-0 flex items-start justify-start p-4 md:absolute md:pt-24 md:pl-32 ">
-          <p class="md:text-5xl font-bold sm:text-xl">Túi</p>
+          <p class="md:text-5xl font-bold sm:text-xl text-white">Túi</p>
         </div>
     </div>
     <div class="flex flex-wrap justify-center">

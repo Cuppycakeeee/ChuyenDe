@@ -531,18 +531,26 @@
 </style>
 
 <!-- Nút bấm mở chatbot -->
-<button id="chatbot-button">💬</button>
+<button id="chatbot-button"
+  class="fixed z-[1001] bottom-5 right-5 bg-yellow-400 text-white rounded-full w-16 h-16 text-2xl shadow-lg flex items-center justify-center">
+  💬
+</button>
 
 <!-- Popup chatbot -->
-<div id="chatbot-popup">
-  <div id="chatbot-popup-header">
+<div id="chatbot-popup"
+  class="hidden fixed z-[1000] bottom-24 right-5 w-[350px] h-[500px] bg-white border border-gray-200 rounded-2xl shadow-xl flex flex-col font-sans">
+  <div id="chatbot-popup-header"
+    class="bg-gray-100 text-gray-800 p-4 text-center font-bold text-lg relative">
     Chatbot
-    <button id="chatbot-close">&times;</button>
+    <button id="chatbot-close"
+      class="absolute top-2 right-3 bg-transparent border-none text-xl cursor-pointer text-gray-800">&times;</button>
   </div>
-  <div id="chatbot-popup-messages"></div>
-  <div id="chatbot-popup-input">
-    <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn...">
-    <button id="chatbot-send">Gửi</button>
+  <div id="chatbot-popup-messages" class="flex-1 p-4 overflow-y-auto bg-white text-gray-800"></div>
+  <div id="chatbot-popup-input" class="flex border-t border-gray-200 bg-gray-100 p-3">
+    <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn..."
+      class="flex-1 border border-gray-200 rounded-lg p-2 text-sm mr-2 bg-white text-gray-800 outline-none" />
+    <button id="chatbot-send"
+      class="bg-gray-800 text-white rounded-lg px-4 py-2 text-sm hover:bg-yellow-500 transition">Gửi</button>
   </div>
 </div>
 
